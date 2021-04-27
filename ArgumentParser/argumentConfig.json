@@ -1,0 +1,14 @@
+{
+    "arguments": [
+        {
+            "name": "option",
+            "shortHand": "-o",
+            "requiresOption": false
+        },
+        {
+            "name": "output",
+            "shortHand": "-O",
+            "requiresOption": true
+        }
+    ]
+}
