@@ -13,8 +13,11 @@ namespace ThreadDownloader
                     var urlString = options.UrlString;
                     var outputPath = options.OutputPath;
 
-                    Downloader downloader = new Downloader(urlString, outputPath);
+                    // Downloader downloader = new Downloader(urlString, outputPath);
                 });
+
+            
+            HtmlParser.Parser.Run();
         }
     }
 }

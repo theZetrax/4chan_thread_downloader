@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArgumentParser\ArgumentParser.csproj" />
+    <ProjectReference Include="..\HtmlParser\HtmlParser.csproj" />
   </ItemGroup>
 
 </Project>
