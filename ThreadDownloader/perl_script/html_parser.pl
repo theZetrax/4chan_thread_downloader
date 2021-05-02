@@ -9,15 +9,39 @@ use Getopt::Long qw(GetOptions);
 package HtmlParser;
 use base qw(HTML::Parser);
 
+# Constructor
+sub new {
+    my ($class) = @_;
+    my $self = $class->SUPER::new();
+
+    my @links = ();
+    $self->{_links} = \@links;
+
+    bless $self, $class;
+    return $self;
+}
+
+# returns links joined together with new line character.
+sub getLinks {
+    my ($self) = @_;
+    my $links = $self->{_links}; # Getting Links array reference
+    return join("\n", @$links);
+}
+
 # Looks for <img> tags and extracts their src attribute
 sub start {
     my ($self, $tagname, $attr, $attrseq, $origtext) = @_;
+    my $links = $self->{_links};
 
+    # Get tag attribute if 
     if ($tagname eq 'img') {
-        print "Image found: ", $attr->{ src }, "\n";
+        my $href = $attr->{ src }; # Reading src attribute
+        $href =~ s/\/\///ig; # Remove '\\' characters 
+        push(@$links, $href);
     }
 }
 
+# Main Program Section
 package main;
 
 # Usage display, checking if both 'io' and 'html' flag are not used
@@ -53,29 +77,27 @@ my $console_html;
 # Getting argument options, storing them in console argument variables.
 GetOptions('io' => \$useIO, 'html=s' => \$console_html, 'file=s' => \$filePath ) or die "Usage: $0 --html <HTML STRING> or --file <FILE PATH>\n";
 
-
+# Initiating Parser
+my $parser = new HtmlParser();
 
 # processing for using IO or Console argument
 if($useIO) {
-    my $html_string = <>;
-    say "Welcome";
+    my $html_string = <>; # Reading input from input stream
+    $parser->parse( $html_string ); # Parsing HTML Data from io
+    print $parser->getLinks(); # Printing links
+    exit;
+}
 
-    $html_string = <<EOHTML;
-    <html>
-        <head>
-            <title>Boi</title>
-        </head>
-        <body>
-            <img src="https://developer.mozilla.org/static/img/favicon144.png" alt="Visit the MDN site">
-            <img src="https://www.google.com/google-logo.png" alt="Google Logo Here">
-            <img src="https://developer.mozilla.org/static/img/favicon144.png" alt="Visit the MDN site">
-        </body>
-    </html>
-EOHTML
+# Read html data from file.
+if ($filePath) {
+    $parser->parse_file($filePath); # Reading & Parsing Html from file.
+    print $parser->getLinks(); # printing links
+    exit;
+}
 
-    my $parser = HtmlParser->new;
-    $parser->parse( $html_string );
-} else {
-    my $html_string = $console_html;
-    print $html_string;
+# Read Console Input
+if ($console_html) {
+    $parser->parse( $console_html ); # Parsing html data from console argumnet input
+    print $parser->getLinks(); # Printing links
+    exit;
 }

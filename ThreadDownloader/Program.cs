@@ -17,7 +17,9 @@ namespace ThreadDownloader
                 });
 
             
-            HtmlParser.Parser.Run();
+            // HtmlParser.Parser.Run();
+            HtmlParser.FileParser fileParser = new HtmlParser.FileParser("4_27_2021_6_23_36_PM.htm");
+            Console.WriteLine(fileParser.Run());
         }
     }
 }
