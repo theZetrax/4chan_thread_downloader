@@ -13,13 +13,16 @@ namespace ThreadDownloader
                     var urlString = options.UrlString;
                     var outputPath = options.OutputPath;
 
-                    // Downloader downloader = new Downloader(urlString, outputPath);
-                });
+                    Downloader downloader = new Downloader(urlString, outputPath);
+                    HtmlParser.StreamParser streamParser = 
+                        new HtmlParser.StreamParser(downloader.GetThread());
+                    var imageLinks = streamParser.Run().Split("\n");
 
-            
-            // HtmlParser.Parser.Run();
-            HtmlParser.FileParser fileParser = new HtmlParser.FileParser("4_27_2021_6_23_36_PM.htm");
-            Console.WriteLine(fileParser.Run());
+                    foreach(string link in imageLinks)
+                    {
+                        Console.WriteLine(link); // Outputting links
+                    }
+                });
         }
     }
 }

@@ -23,9 +23,9 @@ namespace HtmlParser
 
             using (Process process = Process.Start(this.PerlStartInfo))
             {
-                StreamWriter inputStream = new StreamWriter(process.StandardInput.BaseStream);
-                StreamReader outputStream = new StreamReader(process.StandardOutput.BaseStream);
-                StreamReader errorStream = new StreamReader(process.StandardError.BaseStream);
+                StreamWriter inputStream = process.StandardInput;
+                StreamReader outputStream = process.StandardOutput;
+                StreamReader errorStream = process.StandardError;
                 
                 // Sending html through perl (child) input stream
                 inputStream.WriteLine(this.HtmlString);
