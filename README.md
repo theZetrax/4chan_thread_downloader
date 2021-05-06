@@ -17,4 +17,4 @@ dotnet run
 
 ## Message
 
-If you have any ideas on this project contact me through my, [zabjd22@gmail.com](mailto:zabjd22@gmail.com).
+If you have any ideas on this project contact me through my email, [zabjd22@gmail.com](mailto:zabjd22@gmail.com).
