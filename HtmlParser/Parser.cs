@@ -14,7 +14,7 @@ namespace HtmlParser
         /// <param name="perlParserPath">Path of the html parser script.</param>
         public Parser(
             string perlInterpreterPath = "/usr/bin/perl",
-            string perlParserPath = "perl_script/html_parser.pl")
+            string perlParserPath = "script.pl")
         {
             this.PerlStartInfo = new ProcessStartInfo(perlInterpreterPath);
             this.PerlStartInfo.ArgumentList.Add(perlParserPath);

@@ -14,14 +14,7 @@ namespace ThreadDownloader
                     var outputPath = options.OutputPath;
 
                     Downloader downloader = new Downloader(urlString, outputPath);
-                    HtmlParser.StreamParser streamParser = 
-                        new HtmlParser.StreamParser(downloader.GetThread());
-                    var imageLinks = streamParser.Run().Split("\n");
-
-                    foreach(string link in imageLinks)
-                    {
-                        Console.WriteLine(link); // Outputting links
-                    }
+                    downloader.DownloadImages();
                 });
         }
     }
